@@ -1,2 +1,5 @@
-# Design_Pattern
-C++ description of &lt;Head First : Design Pattern> .
+### Design_Pattern
+
+> Since ¡¶Head Frist : Design Pattern¡·is wroten by Java ,there should be a 
+> C++ version . So I'm trying to translate all these design patterns into modern 
+> C++ code.
