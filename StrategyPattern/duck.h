@@ -26,9 +26,12 @@ public:
   Duck() {} // default constructor.
   virtual void display() = 0;
   virtual void siwm();
-  virtual void performFly();
+  // interfaces to perform fly&quack behaviors.
+  virtual void performFly(); 
   virtual void performQuack();
-
+  // interfaces to change fly & quack behaviors dynamically (at runtime).
+  virtual void setFlyBehavior(FlyBehavior* newbhv);
+  virtual void setQuarkBehavior(QuackBehavior* newbhv);
 protected:
   // use pointer to realize polymorphic.
   FlyBehavior *flyBehavior;
@@ -52,6 +55,11 @@ public:
 class FlyWithWings : public FlyBehavior {
 public:
   void fly() override;
+};
+
+class FlyRocketPowered :public FlyBehavior {
+public:
+	void fly() override;
 };
 
 class FlyNoWay : public FlyBehavior {
@@ -85,4 +93,13 @@ public:
   }
 
   void display() override;
+};
+
+class ModelDuck :public Duck {
+public:
+	ModelDuck() {
+		flyBehavior = new FlyNoWay;
+		quackBehavior = new Quack;
+	}
+	void display() override;
 };

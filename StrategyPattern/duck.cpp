@@ -15,6 +15,16 @@ void Duck::performQuack()
 	quackBehavior->quack();
 }
 
+void Duck::setFlyBehavior(FlyBehavior * newbhv)
+{
+	flyBehavior = newbhv;
+}
+
+void Duck::setQuarkBehavior(QuackBehavior * newbhv)
+{
+	quackBehavior = newbhv;
+}
+
 void FlyWithWings::fly()
 {
 	std::cout << "I'm flying!" << std::endl;
@@ -45,9 +55,12 @@ void MallardDuck::display()
 	std::cout << "I'm a real Mallard Duck!" << std::endl;
 }
 
+void FlyRocketPowered::fly()
+{
+	std::cout << "I'm flying with a rocket!" << std::endl;
+}
 
-int main() {
-	Duck *mallard = new MallardDuck;
-	mallard->performFly();
-	mallard->performQuack();
+void ModelDuck::display()
+{
+	std::cout << "I'm a model duck!" << std::endl;
 }
