@@ -6,4 +6,4 @@
 
 #### Cover
 
-![cover](https://github.com/SimonCqk/Design_Pattern/blob/master/cover/cover.jpg?raw=true)
+![cover](https://github.com/SimonCqk/Design_Pattern/blob/master/image/cover.jpg?raw=true)
