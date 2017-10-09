@@ -6,7 +6,8 @@ public:
 	virtual std::string getDescription() const {
 		return description;
 	}
-protected:
+	virtual ~Beverage() = default;
+  protected:
 	std::string description;
 };
 
@@ -24,7 +25,7 @@ public:
 	Espresso() {
 		description = "Espresso";
 	}
-	double cost();
+	double cost() override;
 };
 
 class HouseBlend :public Beverage {
@@ -32,7 +33,7 @@ public:
 	HouseBlend() {
 		description = "House Blend Coffee";
 	}
-	double cost();
+	double cost() override;
 };
 
 // Define main decorator.
@@ -40,10 +41,10 @@ class Mocha : public CondimentDecorator {
 public:
 	explicit Mocha(Beverage* bev) :
 		beverage(bev) {}
-	std::string getDescription() {
+	std::string getDescription() override  {
 		return beverage->getDescription() + " Mocha";
 	}
-	double cost();
+	double cost() override ;
 private:
 	Beverage* beverage;
 };

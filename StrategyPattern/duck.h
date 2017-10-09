@@ -15,6 +15,7 @@ public:
   // interfaces to change fly & quack behaviors dynamically (at runtime).
   virtual void setFlyBehavior(FlyBehavior* newbhv);
   virtual void setQuarkBehavior(QuackBehavior* newbhv);
+  virtual ~Duck() = default;
 protected:
   // use pointer to realize polymorphic.
   FlyBehavior *flyBehavior;
