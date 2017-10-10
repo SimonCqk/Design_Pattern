@@ -12,25 +12,6 @@ enum class Ingredients
 	pepperoni
 };
 
-inline std::string EnumToString(const Ingredients& ing) {
-	switch (ing)
-	{
-	case Ingredients::cheese:
-		return "cheese";
-	case Ingredients::clam:
-		return "clam";
-	case Ingredients::dough:
-		return "dough";
-	case Ingredients::pepperoni:
-		return "pepperoni";
-	case Ingredients::sauce:
-		return "sauce";
-	case Ingredients::veggie:
-		return "veggie";
-	default:
-		return "UNKOWN TYPE.";
-	}
-}
 
 class Pizza {
 public:
@@ -77,6 +58,26 @@ private:
 class ClamPizza :public Pizza {
 public:
 	explicit ClamPizza(PizzaIngredientFactory* factory) {
+		igrdt_factory = factory;
+	}
+	void prepare() override;
+private:
+	PizzaIngredientFactory* igrdt_factory;
+};
+
+class VeggiePizza:public Pizza {
+public:
+	explicit VeggiePizza(PizzaIngredientFactory* factory) {
+		igrdt_factory = factory;
+	}
+	void prepare() override;
+private:
+	PizzaIngredientFactory* igrdt_factory;
+};
+
+class PepperoniPizza:public Pizza {
+public:
+	explicit PepperoniPizza(PizzaIngredientFactory* factory) {
 		igrdt_factory = factory;
 	}
 	void prepare() override;
