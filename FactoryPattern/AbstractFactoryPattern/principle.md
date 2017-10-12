@@ -22,3 +22,7 @@
 - FM uses `class` while AF uses `object`.
 - FM creates objects by inheriting while AF by combining of objects.
 - FM creates a single product while AF create families of products.
+
+<br>
+
+#### In our example, `PizzaIngredientFactory` is Abstract Factory and `PizzaStore` is FactoryMethod.
