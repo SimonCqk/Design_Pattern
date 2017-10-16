@@ -7,7 +7,7 @@ class Observer;
 
 class Subject {
 public:
-	virtual void registerObserver(const std::shared_ptr<Observer>& o) = 0;
+	virtual void registerObserver(std::shared_ptr<Observer> o) = 0;
 	virtual void removeObserver(const std::shared_ptr<Observer>& o) = 0;
 	virtual void notifyObservers() = 0;
 };
@@ -24,7 +24,7 @@ public:
 
 class WeatherData :public Subject {
 public:
-	void registerObserver(const std::shared_ptr<Observer>& o) override;
+	void registerObserver(std::shared_ptr<Observer> o) override;
 	void removeObserver(const std::shared_ptr<Observer>& o)override;
 	void notifyObservers() override;
 	void measurementsChanged();
@@ -39,9 +39,8 @@ private:
 // Just define one of three display elements.
 class CurrentConditionsDisplay :public Observer, public DisplayElement {
 public:
-	CurrentConditionsDisplay(std::shared_ptr<Subject> weather_data)
-		:weatherData(weather_data) {
-		weather_data->registerObserver(std::make_shared<CurrentConditionsDisplay>(this));
+	CurrentConditionsDisplay(std::shared_ptr<Subject> weather_data){
+		weatherData = weather_data;
 	}
 	void update(const float& temp, const float& humidity, const float& pressure) override;
 	void display() override;

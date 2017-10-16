@@ -1,6 +1,6 @@
 #include "observer.h"
 
-void WeatherData::registerObserver(const std::shared_ptr<Observer>& o)
+void WeatherData::registerObserver(std::shared_ptr<Observer> o)
 {
 	observers.emplace_back(o);
 }
@@ -10,7 +10,7 @@ void WeatherData::removeObserver(const std::shared_ptr<Observer>& o)
 	// find it.
 	auto beg = observers.begin();
 	for (; beg != observers.end(); ++beg) {
-		if (beg->lock() == o)
+		if (beg->lock().get() == o.get())
 			break;
 	}
 	if (beg != observers.end())
