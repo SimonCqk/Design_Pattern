@@ -1,13 +1,14 @@
 #include<iostream>
 #include<vector>
 #include<algorithm>
+#include<memory>
 
 class Observer;
 
 class Subject {
 public:
-	virtual void registerObserver( Observer* o) = 0;
-	virtual void removeObserver(Observer* o) = 0;
+	virtual void registerObserver(const std::shared_ptr<Observer>& o) = 0;
+	virtual void removeObserver(const std::shared_ptr<Observer>& o) = 0;
 	virtual void notifyObservers() = 0;
 };
 
@@ -23,13 +24,13 @@ public:
 
 class WeatherData :public Subject {
 public:
-	void registerObserver(Observer* o) override ;
-	void removeObserver(Observer* o)override ;
-	void notifyObservers() override ;
+	void registerObserver(const std::shared_ptr<Observer>& o) override;
+	void removeObserver(const std::shared_ptr<Observer>& o)override;
+	void notifyObservers() override;
 	void measurementsChanged();
 	void setMeasurements(const float& temp, const float& humidity, const float& pressure);
 private:
-	std::vector<Observer*> observers;
+	std::vector<std::weak_ptr<Observer>> observers;
 	float temperature;
 	float humidity;
 	float pressure;
@@ -38,14 +39,14 @@ private:
 // Just define one of three display elements.
 class CurrentConditionsDisplay :public Observer, public DisplayElement {
 public:
-	explicit CurrentConditionsDisplay(Subject* weather_data) {
-		weatherData = weather_data;
-		weather_data->registerObserver(this);
+	CurrentConditionsDisplay(std::shared_ptr<Subject> weather_data)
+		:weatherData(weather_data) {
+		weather_data->registerObserver(std::make_shared<CurrentConditionsDisplay>(this));
 	}
 	void update(const float& temp, const float& humidity, const float& pressure) override;
 	void display() override;
 private:
 	float temperature;
 	float humidity;
-	Subject* weatherData;
+	std::shared_ptr<Subject> weatherData;
 };

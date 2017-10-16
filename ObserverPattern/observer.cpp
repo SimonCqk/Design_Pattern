@@ -1,22 +1,28 @@
 #include "observer.h"
 
-void WeatherData::registerObserver(Observer* o)
+void WeatherData::registerObserver(const std::shared_ptr<Observer>& o)
 {
-	observers.push_back(o);
+	observers.emplace_back(o);
 }
 
-void WeatherData::removeObserver(Observer* o)
+void WeatherData::removeObserver(const std::shared_ptr<Observer>& o)
 {
-	auto it = std::find(observers.begin(), observers.end(), o);
-	if (it != observers.end())
-		observers.erase(it);
+	// find it.
+	auto beg = observers.begin();
+	for (; beg != observers.end(); ++beg) {
+		if (beg->lock() == o)
+			break;
+	}
+	if (beg != observers.end())
+		observers.erase(beg);
 }
 
 void WeatherData::notifyObservers()
 {
 	for (auto beg = observers.begin(), ed = observers.end();
 		beg != ed; ++beg) {
-		(*beg)->update(temperature, humidity, pressure);
+		if(!beg->expired())
+			beg->lock()->update(temperature, humidity, pressure);
 	}
 }
 
