@@ -8,7 +8,7 @@ public:
 			theSingleton = new Singleton;
 		return theSingleton;
 	}
-	// forbid copy ctor/assignment
+	// forbid copy ctor/assignment  
 	Singleton(const Singleton& s) = delete;
 	Singleton operator=(const Singleton& s) = delete;
 	// forbid moving copy ctor/assignment
